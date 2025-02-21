@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragrances</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fragrance Catalog</h1>
+
+        <!-- Filter & Sorting Form -->
+        <form action="/fragrances" method="GET" class="filter-form">
+            <label>Gender:
+                <select name="gender">
+                    <option value="">All</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Unisex">Unisex</option>
+                </select>
+            </label>
+
+            <label>Brand:
+                <input type="text" name="brand" placeholder="Brand">
+            </label>
+
+            <label>Scent:
+                <input type="text" name="scent" placeholder="e.g. Woody, Floral">
+            </label>
+
+            <label>Top Notes:
+                <input type="text" name="top_notes" placeholder="e.g. Vanilla, Citrus">
+            </label>
+
+            <label>Season:
+                <select name="season">
+                    <option value="">All</option>
+                    <option value="Winter">Winter</option>
+                    <option value="Fall">Fall</option>
+                    <option value="Spring">Spring</option>
+                    <option value="Summer">Summer</option>
+                </select>
+            </label>
+
+            <label>Sort By:
+                <select name="sortBy">
+                    <option value="name">Name</option>
+                    <option value="price">Price</option>
+                </select>
+            </label>
+
+            <label>Order:
+                <select name="order">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </label>
+
+            <button type="submit">Apply Filters</button>
+        </form>
+
+        <!-- Display Fragrances -->
+        <div class="fragrance-list">
+            <% fragrances.forEach(fragrance => { %>
+                <div class="fragrance-card">
+                    <img src="/uploads/<%= fragrance.image %>" alt="<%= fragrance.name %>">
+                    <h3><a href="/fragrance/<%= fragrance._id %>"><%= fragrance.name %></a></h3>
+                    <p><strong>Brand:</strong> <%= fragrance.brand %></p>
+                    <p><strong>Gender:</strong> <%= fragrance.gender %></p>
+                    <p><strong>Scent:</strong> <%= fragrance.scent.join(', ') %></p>
+                    <p><strong>Top Notes:</strong> <%= fragrance.top_notes.join(', ') %></p>
+                    <p><strong>Season:</strong> <%= fragrance.season.join(', ') %></p>
+                    <p><strong>Price:</strong> $<%= Object.values(fragrance.sizes)[0] %>+</p>
+                </div>
+            <% }) %>
+        </div>
+        <a href="/profile" class="btn">Profile</a>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

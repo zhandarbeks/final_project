@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Dashboard</h2>
+        <td><a href="/profile"><img src="/<%= user.profilePicture %>" class="profile-img"></a></td>
+        <h3>All Users</h3>
+        <table>
+            <tr>
+                <th>Profile</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><img src="/<%= user.profilePicture %>" class="profile-img"></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.role %></td>
+                    <td>
+                        <!-- Role Update Form -->
+                        <form action="/admin/update-role/<%= user._id %>" method="POST">
+                            <select name="role">
+                                <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>User</option>
+                                <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                            </select>
+                            <button type="submit">Update Role</button>
+                        </form>
+                        <!-- Delete User Form -->
+                        <form action="/admin/delete-user/<%= user._id %>" method="POST" style="display:inline;">
+                            <button type="submit">Delete User</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

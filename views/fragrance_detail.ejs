@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= fragrance.name %> - Details</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1><%= fragrance.name %> - Details</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/fragrances">Shop</a>
+            <a href="/cart">Cart</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="fragrance-container">
+            <img src="/uploads/<%= fragrance.image %>" alt="<%= fragrance.name %>" width="250">
+            <div class="fragrance-details">
+                <h2><%= fragrance.name %></h2>
+                <p><strong>Brand:</strong> <%= fragrance.brand %></p>
+                <p><strong>Gender:</strong> <%= fragrance.gender %></p>
+                <p><strong>Top Notes:</strong> <%= fragrance.top_notes.join(', ') %></p>
+                <p><strong>Longevity:</strong> <%= fragrance.longevity %></p>
+                <p><strong>Sillage:</strong> <%= fragrance.sillage %></p>
+                <p><strong>Season:</strong> <%= fragrance.season.join(', ') %></p>
+
+                <form action="/cart/add/<%= fragrance._id %>" method="POST">
+                    <label for="size">Select Size:</label>
+                    <select name="size" required>
+                        <% Object.keys(fragrance.sizes).forEach(size => { %>
+                            <option value="<%= size %>"><%= size %> - $<%= fragrance.sizes[size] %></option>
+                        <% }); %>
+                    </select>
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+
+        <a href="/fragrances" class="back-btn">Back to Shop</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Fragrance Store</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS -->
+</head>
+<body>
+    <header>
+        <h1>Your Shopping Cart</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/fragrances">Shop</a>
+            <a href="/cart">Cart (<%= cart.length %>)</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <% if (cart.length === 0) { %>
+            <p>Your cart is empty. <a href="/fragrances">Go shopping</a>.</p>
+        <% } else { %>
+            <ul>
+                <% let totalPrice = 0; %>
+                <% cart.forEach(item => { 
+                    totalPrice += item.price * item.quantity;
+                %>
+                    <li class="cart-item">
+                        <img src="/uploads/<%= item.fragranceId.image %>" alt="<%= item.fragranceId.name %>" width="100">
+                        <div>
+                            <h3><%= item.fragranceId.name %></h3>
+                            <p>Size: <%= item.size %> | Price: $<%= item.price %> | Quantity: <%= item.quantity %></p>
+                            <form action="/cart/remove/<%= item._id %>" method="POST">
+                                <button type="submit" class="remove-btn">Remove</button>
+                            </form>
+                        </div>
+                    </li>
+                <% }); %>
+            </ul>
+
+            <h2>Total: $<%= totalPrice %></h2>
+
+            <form action="/checkout" method="POST">
+                <button type="submit" class="checkout-btn">Proceed to Checkout</button>
+            </form>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Fragrance Store</p>
+    </footer>
+</body>
+</html>
