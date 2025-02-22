@@ -1,6 +1,6 @@
 require('dotenv').config(); // Load environment variables
 const mongoose = require('mongoose');
-const Fragrance = require('./models/Fragrance'); // Import the model
+const Fragrance = require('./models/Fragrance'); 
 
 // Your fragrance data
 const fragrances = [
